@@ -1,1 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ojitos lindos, ¿Quieres ser mi San Valentín? ❤️</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600&display=swap');
 
+        /* Fondo y Estilo Global */
+        body {
+            background: linear-gradient(to bottom, #ff99cc, #ff66b2);
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Corazones flotantes */
+        .heart {
+            position: absolute;
+            color: #ff4d6d;
+            font-size: 30px;
+            animation: floating 6s linear infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes floating {
+            0% { transform: translateY(0px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Contenedor Principal */
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 400px;
+            position: relative;
+            z-index: 2;
+            transition: all 0.5s ease;
+            border: 5px dashed #ff4d6d;
+        }
+
+        /* Título */
+        h1 {
+            font-size: 2rem;
+            font-family: 'Pacifico', cursive;
+            color: #ff4d6d;
+            margin-bottom: 20px;
+        }
+
+        /* Botones */
+        .buttons {
+            margin-top: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 28px;
+            margin: 12px;
+            font-size: 18px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-family: 'Pacifico', cursive;
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
+            transition: 0.3s ease;
+        }
+
+        /* Botón "Sí" */
+        .yes {
+            background-color: #ff4d6d;
+            color: white;
+            box-shadow: 0px 6px 15px rgba(255, 77, 109, 0.4);
+            transform: scale(1);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .yes:hover {
+            background-color: #ff1a4c;
+            transform: scale(1.05);
+        }
+
+        /* Botón "No" */
+        .no {
+            background-color: #ccc;
+            color: black;
+            font-size: 18px;
+            transition: transform 0.3s, font-size 0.3s;
+        }
+
+        .no:hover {
+            background-color: #e1e1e1;
+        }
+
+        /* Mensaje final decorado */
+        .final-message {
+            display: none;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 35px;
+            border-radius: 25px;
+            box-shadow: 0px 6px 30px rgba(0, 0, 0, 0.1);
+            max-width: 450px;
+            margin-top: 30px;
+            color: #ff4d6d;
+            font-size: 1.5rem;
+            font-family: 'Pacifico', cursive;
+            text-align: center;
+            border: 3px dashed #ff4d6d;
+            transition: all 0.5s ease;
+        }
+
+        .final-message h2 {
+            margin-bottom: 15px;
+        }
+
+        .heart-message {
+            font-size: 2rem;
+        }
+
+        /* Responsividad */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .btn {
+                font-size: 16px;
+                padding: 12px 22px;
+            }
+
+            .container {
+                padding: 30px;
+            }
+
+            .final-message {
+                padding: 20px;
+                font-size: 1.25rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Corazones flotando -->
+    <div class="heart" style="top: 10%; left: 30%;">❤️</div>
+    <div class="heart" style="top: 20%; left: 50%;">❤️</div>
+    <div class="heart" style="top: 35%; left: 70%;">❤️</div>
+    <div class="heart" style="top: 50%; left: 40%;">❤️</div>
+    <div class="heart" style="top: 70%; left: 60%;">❤️</div>
+    
+    <div class="container" id="mainContainer">
+        <h1 id="question">Ojitos lindos, ¿quieres ser mi San Valentín? ❤️</h1>
+        <div class="buttons">
+            <button class="btn yes" id="yesButton" onclick="aceptar()">¡Sí, obvio! ❤️</button>
+            <button class="btn no" id="noButton" onclick="achicarNo()">No 😢</button>
+        </div>
+    </div>
+
+    <!-- Mensaje final decorado -->
+    <div class="final-message" id="finalMessage">
+        <h2>Gracias por permitirme ser parte de tu vida, mi princesa. Aunque la distancia nos separe, quiero que sepas que te amo muchísimo, muchísimo. 🫶🏻</h2>
+        <div class="heart-message">❤️❤️❤️</div>
+    </div>
+
+    <script>
+        let noClickCount = 0;
+        const mensajesNo = [
+            "¿Estás segura? 🥺",
+            "Piénsalo bien... 😢",
+            "No hagas esto 💔",
+            "Pero si te amo... 🥺",
+            "Dame una oportunidad 😭",
+            "Mira que me voy a poner triste 😞",
+            "Aún puedes cambiar de opinión ❤️"
+        ];
+
+        function aceptar() {
+            document.getElementById("mainContainer").style.display = "none";
+            document.getElementById("finalMessage").style.display = "block";
+        }
+
+        function achicarNo() {
+            let noButton = document.getElementById("noButton");
+            let yesButton = document.getElementById("yesButton");
+            let question = document.getElementById("question");
+
+            // Si se han presionado todas las veces posibles el "No"
+            if (noClickCount < mensajesNo.length) {
+                // Reducir tamaño del botón "No"
+                let currentSize = parseFloat(noButton.style.fontSize || "18");
+                if (currentSize > 10) {
+                    noButton.style.fontSize = (currentSize - 3) + "px";
+                    noButton.style.padding = "8px 16px";
+                } else {
+                    noButton.style.display = "none"; // Desaparece cuando es muy pequeño
+                }
+
+                // Hacer crecer el botón "Sí"
+                let currentYesSize = parseFloat(yesButton.style.fontSize || "18");
+                yesButton.style.fontSize = (currentYesSize + 3) + "px";
+
+                // Cambiar el mensaje principal
+                if (noClickCount < mensajesNo.length) {
+                    question.innerText = mensajesNo[noClickCount];
+                    noClickCount++;
+                }
+            } else {
+                question.innerText = "Ándale mi princesa 🥺"; // Mensaje final cuando no se pueda presionar más el "No"
+            }
+        }
+    </script>
+
+</body>
+</html>
